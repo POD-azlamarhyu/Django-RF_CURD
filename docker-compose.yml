@@ -1,0 +1,38 @@
+version: "3"
+
+services: 
+    db:
+        container_name: django_db
+        image: postgres:13
+        volumes: 
+            - django_data_volume:/var/lib/postgres/data
+        environment: 
+            - POSTGRES_DB=tweetdb
+            - POSTGRES_USER=admintweet
+            - POSTGRES_PASSWORD=passdb
+    tweet_back:
+        container_name: tweet_backend
+        build: 
+            context: .
+            dockerfile: DockerfilePython
+        volumes: 
+            - ./backend:/backend
+        tty: true
+        ports: 
+            - 8000:8000
+        depends_on: 
+            - db
+    tweet_front:
+        container_name: tweet_frontend
+        build: 
+            context: .
+            dockerfile: DockerfileNode
+        volumes: 
+            - ./frontend:/frontend
+        tty: true
+        ports: 
+            - 3000:3000
+        depends_on: 
+            - tweet_back
+volumes: 
+    django_data_volume:
