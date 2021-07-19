@@ -18,10 +18,6 @@ const TweetCreate = () => {
 
     const submitTweet = async (e) => {
         e.preventDefault();
-        let form_data = new FormData();
-        form_data.append('text',txt);
-        form_data.append('image',img);
-        form_data.append('video',vid);
 
         await axios.post('http://0.0.0.0:8000/tweet/create',tweetCreate)
         console.log(tweetCreate);
@@ -29,18 +25,17 @@ const TweetCreate = () => {
 
     const textChange = (e) => {
         setTweetCreate({...tweetCreate,[e.target.name]:e.target.value})
-        console.log(txt);
+        
     }
 
     const imageChange = (e) => {
-        console.log(e.target.files[0]);
-        setImage(e.target.files[0]);
-        console.log(img);
+        setTweetCreate({...tweetCreate,[e.target.name]:e.target.files[0]});
+
     }
 
     const videoChange = (e) =>{
-        setVideo(e.target.files[0]);
-        console.log(vid);
+        setTweetCreate({...tweetCreate,[e.target.name]:e.target.files[0]});
+        
     }
 
     return (
@@ -51,13 +46,13 @@ const TweetCreate = () => {
                         <input type="text" name="text" onChange={textChange}/>
                     </div>
                     <div>
-                    <input type="file" accept="image/*" onChange={imageChange}/>
+                        <input type="file" accept="image/*" name="image" onChange={imageChange}/>
                     </div>
                     <div>
-                    <input type="file" accept="video/*" onChange={videoChange}/>
+                        <input type="file" accept="video/*" name="video" onChange={videoChange}/>
                     </div>
                     <div>
-                    <button type="submit">ツイート</button>
+                        <button type="submit">ツイート</button>
                     </div>
                 </form>
             </div>

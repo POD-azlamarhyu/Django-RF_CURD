@@ -1,0 +1,22 @@
+/frontend/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+/frontend/.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+/backend/media/videos
