@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useRef} from 'react';
 import axios from 'axios';
 
 const TweetCreate = () => {
@@ -10,49 +10,68 @@ const TweetCreate = () => {
     }
 
     const [tweetCreate,setTweetCreate] = useState(tweetData);
-    const [txt,setText] = useState("");
-    const [img,setImage] = useState();
-    const [vid,setVideo] = useState();
+    const [text,setText] = useState();
+    const [image,setImage] = useState();
+    const [video,setVideo] = useState();
+    const inputTextDom = useRef();
+    const inputImageDom = useRef();
+    const inputVideoDom = useRef();
 
-    const [submit,setSubmit] = useState(false);
-
-    const submitTweet = async (e) => {
-        e.preventDefault();
-
-        await axios.post('http://0.0.0.0:8000/tweet/create',tweetCreate)
-        console.log(tweetCreate);
-    }
-
-    const textChange = (e) => {
-        setTweetCreate({...tweetCreate,[e.target.name]:e.target.value})
+    const submitTweet = async (event) => {
+        event.preventDefault();
+        let form_data = new FormData();
+        form_data.append('text',text);
         
+        if(image){
+            form_data.append('image',image);
+        }
+        if(video){
+            form_data.append('video',video);
+        }
+        
+        console.log(form_data);
+
+        await axios.post('http://0.0.0.0:8000/tweet/create',form_data,{
+            headers:{
+                'content-type': 'multipart/form-data'
+            }
+        });
+        
+        inputTextDom.current.value = null;
+        inputImageDom.current.files = null;
+        inputVideoDom.current.files = null;
+
     }
 
-    const imageChange = (e) => {
-        setTweetCreate({...tweetCreate,[e.target.name]:e.target.files[0]});
-
+    const textChange = (event) => {
+        setText(event.target.value);
+        console.log(text);
     }
 
-    const videoChange = (e) =>{
-        setTweetCreate({...tweetCreate,[e.target.name]:e.target.files[0]});
+    const imageChange = (event) => {
+        setImage(event.target.files[0]);
+    }
+
+    const videoChange = (event) =>{
+        setVideo(event.target.files[0]);
         
     }
 
     return (
         <div>
-            <div>
-                <form onSubmit={submitTweet}>
+            <div className="m-2">
+                <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitTweet} >
                     <div>
-                        <input type="text" name="text" onChange={textChange}/>
+                        <input ref={inputTextDom} className="shadow appearance-none border rounded w-full py-2 px-3" type="text" name="text" onChange={textChange}　placeholder="何が起きた？"/>
                     </div>
                     <div>
-                        <input type="file" accept="image/*" name="image" onChange={imageChange}/>
+                        <input ref={inputImageDom} type="file" accept="image/*" name="image" onChange={imageChange}/>
                     </div>
                     <div>
-                        <input type="file" accept="video/*" name="video" onChange={videoChange}/>
+                        <input ref={inputVideoDom} type="file" accept="video/*" name="video" onChange={videoChange}/>
                     </div>
                     <div>
-                        <button type="submit">ツイート</button>
+                        <button className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">ツイート</button>
                     </div>
                 </form>
             </div>
