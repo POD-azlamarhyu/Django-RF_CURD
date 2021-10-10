@@ -10,29 +10,24 @@ const Tweetlist = () => {
             const data = await axios.get(
                 'http://0.0.0.0:8000/tweet/',
             );
-            console.log(data);
             setTweets(data.data);
-            console.log(data.data);
         };
         fetchData();
     },[]);
     return (
         <div>
-            <div>
+            <div className="space-y-4 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 {tweets.map((tweet)=>(
-                    <div key={tweets.id} className="">
+                    <div key={tweet.id} className="border-2　border-grey-200">
                         <div>
                             <div>
-                                <p>{tweets.text}</p>
+                                <p className="text-left mh-3 break-words">{tweet.text}</p>
                             </div>
                             <div>
-                                {tweets.image ? <img src={tweets.image} alt='img' /> : <></>}
-                                {tweets.video ? <video controls src={tweets.video} /> : <></>}
+                                {tweet.image ? <img src={tweet.image} alt='img' /> : <></>}
+                                {tweet.video ? <video controls src={tweet.video} /> : <></>}
                             </div>
-                            <p>{tweets.create_at}</p>
-                        </div>
-                        <div>
-                            <Link to={'/tweetdetail/'+tweets.id}>詳細</Link>
+                            <p className="text-xs text-gray-400">{tweet.create_at}</p>
                         </div>
                     </div>
                 ))}
