@@ -2,14 +2,14 @@ import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 
 
-const Tweetdetail = () => {
+const Tweetdetail = (props) => {
 
     const [tweetDetail,setTweetDetail] = useState([]);
 
     useEffect(()=>{
         const fetchData = async() => {
             const data = await axios.get(
-                `http://0.0.0.0:8000/tweet/${3}`
+                `http://0.0.0.0:8000/tweet/${props.id}`
             )
             setTweetDetail(data.data);
         };
