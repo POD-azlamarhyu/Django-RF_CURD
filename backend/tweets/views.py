@@ -18,7 +18,7 @@ class TweetView(APIView):
 class TweetDetailView(APIView):
     def get_object(self,pk,format=None):
         try:
-            return Tweets.objects.get(pk=pk)
+            return Tweets.objects.get(id=pk)
         except Tweets.DoesNotExist:
             raise Http404
 
