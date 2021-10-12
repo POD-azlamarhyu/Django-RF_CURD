@@ -3,13 +3,8 @@ import axios from 'axios';
 
 const TweetCreate = () => {
 
-    const tweetData = {
-        text:"",
-        image:null,
-        video:null,
-    }
 
-    const [tweetCreate,setTweetCreate] = useState(tweetData);
+
     const [text,setText] = useState();
     const [image,setImage] = useState();
     const [video,setVideo] = useState();
@@ -60,9 +55,10 @@ const TweetCreate = () => {
     return (
         <div>
             <div className="m-2">
-                <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitTweet} >
+                <form className="" onSubmit={submitTweet} >
                     <div>
-                        <input ref={inputTextDom} className="shadow appearance-none border rounded w-full py-2 px-3" type="text" name="text" onChange={textChange}　placeholder="何が起きた？"/>
+                        <textarea ref={inputTextDom} className="my-5 mx-0 shadow appearance-none border rounded w-full h-20 py-2 px-3" type="text" name="text" onChange={textChange}　placeholder="何が起きた?" wrap="hard">
+                        </textarea>
                     </div>
                     <div>
                         <input ref={inputImageDom} type="file" accept="image/*" name="image" onChange={imageChange}/>
@@ -70,7 +66,7 @@ const TweetCreate = () => {
                     <div>
                         <input ref={inputVideoDom} type="file" accept="video/*" name="video" onChange={videoChange}/>
                     </div>
-                    <div>
+                    <div className="flex justify-end">
                         <button className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">ツイート</button>
                     </div>
                 </form>
