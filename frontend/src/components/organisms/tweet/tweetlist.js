@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
 import axios from 'axios';
+import TweetCreate from './tweetcreate';
+import {ConvertDate} from '../../functions/convert';
 
 const Tweetlist = () => {
     const [tweets,setTweets] = useState([]);
@@ -16,20 +18,23 @@ const Tweetlist = () => {
     },[]);
     return (
         <div>
-            <div className="space-y-4 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <TweetCreate />
+            <div className="">
                 {tweets.map((tweet)=>(
-                    <div key={tweet.id} className="border-2　border-grey-200">
-                        <div>
-                            <div>
-                                <p className="text-left mh-3 break-words">{tweet.text}</p>
+                    <NavLink tweet_id={tweet.id} to={`/tweet/${tweet.id}`}>
+                        <div className="p-4 min-h-60 border-t border-gray-400">
+                            <div className="">
+                                <div>
+                                    <p className="text-left mh-3 break-words">{tweet.text}</p>
+                                </div>
+                                <div>
+                                    {tweet.image ? <img src={tweet.image} alt='img' /> : <></>}
+                                    {tweet.video ? <video controls src={tweet.video} /> : <></>}
+                                </div>
+                                <p className="text-xs text-gray-400">{ConvertDate(tweet.create_at)}</p>
                             </div>
-                            <div>
-                                {tweet.image ? <img src={tweet.image} alt='img' /> : <></>}
-                                {tweet.video ? <video controls src={tweet.video} /> : <></>}
-                            </div>
-                            <p className="text-xs text-gray-400">{tweet.create_at}</p>
                         </div>
-                    </div>
+                    </NavLink>
                 ))}
             </div>
         </div>

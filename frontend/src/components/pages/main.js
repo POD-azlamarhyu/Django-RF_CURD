@@ -3,7 +3,7 @@ import Tweet from '../organisms/tweet/tweet';
 
 const Main = () => {
     return (
-        <div className="sm:w-full md:w-10/12 lg:w-3/4 xl:w-8/12 mx-auto">
+        <div className="sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto">
             <Tweet />
         </div>
     )
