@@ -27,6 +27,14 @@ class TweetDetailView(APIView):
         serializer = TweetSerializer(tweet)
         return Response(serializer.data)
 
+    def put(self,request,pk,format=None):
+        tweet = self.get_object(pk)
+        serializers = TweetSerializer(tweet,data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
 class TweetCreateView(APIView):
     # queryset = Tweets.objects.all()
     # serializer_class = TweetSerializer
@@ -41,4 +49,3 @@ class TweetCreateView(APIView):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
