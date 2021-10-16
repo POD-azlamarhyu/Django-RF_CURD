@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react';
-import {NavLink,Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import TweetCreate from './tweetcreate';
 import {ConvertDate} from '../../functions/convert';
+import { react_tweet_end_point } from '../../functions/ulrs';
 
 const Tweetlist = () => {
     const [tweets,setTweets] = useState([]);
@@ -10,7 +11,7 @@ const Tweetlist = () => {
     useEffect(() => {
         const fetchData = async () =>{
             const data = await axios.get(
-                'http://0.0.0.0:8000/tweet/',
+                react_tweet_end_point,
             );
             setTweets(data.data);
         };
@@ -28,8 +29,8 @@ const Tweetlist = () => {
                                     <p className="text-left mh-3 break-words">{tweet.text}</p>
                                 </div>
                                 <div>
-                                    {tweet.image ? <img src={tweet.image} alt='img' /> : <></>}
-                                    {tweet.video ? <video controls src={tweet.video} /> : <></>}
+                                    {tweet.image ? <img src={`http://0.0.0.0:8000/tweet${tweet.image}`} alt='img' /> : <></>}
+                                    {tweet.video ? <video controls src={`${react_tweet_end_point}${tweet.video}`} /> : <></>}
                                 </div>
                                 <p className="text-xs text-gray-400">{ConvertDate(tweet.create_at)}</p>
                             </div>

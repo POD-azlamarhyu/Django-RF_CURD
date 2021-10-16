@@ -1,8 +1,8 @@
-import React,{useEffect,useState} from 'react';
+import React from 'react';
 import {BrowserRouter as Router ,Switch,Route} from 'react-router-dom';
 import Tweetdetail from './tweetdetail';
 import Tweetlist from './tweetlist';
-import TweetCreate from './tweetcreate';
+
 
 const Tweet = () => {
 

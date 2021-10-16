@@ -1,0 +1,1 @@
+export const react_tweet_end_point = "http://0.0.0.0:8000/tweet";
