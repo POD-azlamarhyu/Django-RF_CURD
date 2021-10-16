@@ -4,8 +4,6 @@ from .serializer import *
 from rest_framework.generics import * 
 from django.http import Http404
 from rest_framework.response import Response
-
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
@@ -34,6 +32,11 @@ class TweetDetailView(APIView):
             serializers.save()
             return Response(serializers.data)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,pk,format=None):
+        tweet = self.get_object(pk)
+        tweet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TweetCreateView(APIView):
     # queryset = Tweets.objects.all()
