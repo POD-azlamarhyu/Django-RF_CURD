@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import {BrowserRouter as Router ,Switch,Route,Link} from 'react-router-dom';
+import {BrowserRouter as Router ,Switch,Route} from 'react-router-dom';
 import Tweetdetail from './tweetdetail';
 import Tweetlist from './tweetlist';
 import TweetCreate from './tweetcreate';
