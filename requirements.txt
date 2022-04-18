@@ -1,4 +1,4 @@
-Django
+Django == 3.2
 psycopg2
 psycopg2-binary
 djangorestframework
@@ -6,3 +6,6 @@ django-cors-headers
 django-filter
 Pillow
 django-debug-toolbar
+djangorestframework-jwt
+django-allauth
+django-rest-auth

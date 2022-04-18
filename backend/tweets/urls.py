@@ -8,6 +8,4 @@ urlpatterns = [
     path('tweet/',TweetView.as_view()),
     path('tweet/<int:pk>',TweetDetailView.as_view()),
     path('tweet/create',TweetCreateView.as_view()),
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
